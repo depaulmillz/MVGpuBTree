@@ -38,6 +38,11 @@ target_compile_definitions(concurrent_insert_range_reclaimer_bench
 							PRIVATE COLLECT_RECLAIMER_STATS
 							PRIVATE COLLECT_ALLOCATOR_STATS)
 
+add_executable(general_bench general_bench.cu)
+set_target_properties(general_bench PROPERTIES
+								FOLDER "benchmarks")
+target_link_libraries(general_bench PRIVATE gpu_btrees)
+
 
 #find_versioned_test
 # add_executable(find_versioned_bench find_versioned_bench.cu)
