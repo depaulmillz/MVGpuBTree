@@ -53,6 +53,8 @@ int main() {
 			set(CUDA_ARCHS "--generate-code=arch=compute_70,code=sm_70;"
 			               "--generate-code=arch=compute_72,code=sm_72;"
 			               "--generate-code=arch=compute_75,code=sm_75;"
+			               "--generate-code=arch=compute_80,code=sm_80;"
+			               "--generate-code=arch=compute_89,code=sm_89;"
 						   CACHE STRING "CUDA Arch")
 		endif()
 	endif()
