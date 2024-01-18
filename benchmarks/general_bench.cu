@@ -51,28 +51,15 @@ void populate(BTree tree, KeyT key_range, size_t size, bool in_place) {
  
   const KeyT invalid_key     = std::numeric_limits<KeyT>::max();
   const ValueT invalid_value = std::numeric_limits<ValueT>::max();
-  thrust::host_vector<KeyT> h_keys(size, invalid_key);
-  thrust::host_vector<ValueT> h_values(size, invalid_value);
 
+  std::unordered_set<KeyT> unique_keys;
 
-  for(size_t i = 0; i < size; ++i) {
-    
-    bool in_set = true;
-    KeyT new_key;
-    while(in_set) {
-      new_key = dist(gen);
-      in_set = false;
-      for(size_t j = 0; j < i; ++j) {
-        if(h_keys[j] == new_key) {
-          in_set = true;
-          break;
-        }
-      }
-    }
-
-    h_keys[i] = new_key;
-    h_values[i] = 1;
+  while(unique_keys.size() < size) {
+    unique_keys.insert(dist(gen));
   }
+
+  thrust::host_vector<KeyT> h_keys(unique_keys.begin(), unique_keys.end());
+  thrust::host_vector<ValueT> h_values(size, 1);
   
   thrust::device_vector<KeyT> d_keys = h_keys;
   thrust::device_vector<ValueT> d_values = h_values;
