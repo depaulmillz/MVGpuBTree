@@ -213,7 +213,7 @@ bench_rates bench_versioned(unsigned population,
 
   cuda_try(cudaStreamDestroy(streamB));
 
-  return {ops / std::chrono::duration<double>(end - start).count() / 1e6};
+  return {ops / std::chrono::duration<double>(end - start).count()};
 }
 
 int main(int argc, char **argv) {
